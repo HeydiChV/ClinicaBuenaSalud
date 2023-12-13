@@ -1,1 +1,575 @@
 --ESTUDIANTE: Heydi Chaina Velasquez
+--ESTUDIANTE: Heydi Chaina Velasquez
+-- Crear la base de datos
+CREATE DATABASE ClinicaBuenaSalud;
+USE ClinicaBuenaSalud;
+
+
+--ESTUDIANTE: Heydi Chaina Velasquez
+--CREACIÓN DE TABLAS
+-- Crear tabla Empleados
+CREATE TABLE Empleados (
+    NumeroEmpleado INT PRIMARY KEY,
+    Nombre NVARCHAR(50),
+    Apellido NVARCHAR(50),
+    FechaNacimiento DATE,
+    FechaAlta DATE, 
+    Especialidad NVARCHAR(50),
+    Departamento NVARCHAR(50),
+    Salario DECIMAL(10, 2),
+);
+
+-- Crear tabla Departamentos
+CREATE TABLE Departamentos (
+    IDDepartamento INT PRIMARY KEY,
+    NombreDepartamento NVARCHAR(50),
+    Ubicacion NVARCHAR(50),
+    NumeroEmpleadoJefe INT,
+    FOREIGN KEY (NumeroEmpleadoJefe) REFERENCES Empleados(NumeroEmpleado)
+);
+
+-- Crear tabla Productos
+CREATE TABLE Productos (
+    IDProducto INT PRIMARY KEY,
+    NombreProducto NVARCHAR(50),
+    Precio DECIMAL(10, 2),
+    CantidadStock INT,
+);
+
+-- Crear tabla Consultas
+CREATE TABLE Consultas (
+    IDConsulta INT PRIMARY KEY,
+    NumeroEmpleado INT,
+    FechaConsulta DATE,
+    Diagnostico NVARCHAR(MAX),
+    FOREIGN KEY (NumeroEmpleado) REFERENCES Empleados(NumeroEmpleado)
+);
+
+-- Crear tabla Enfermos
+CREATE TABLE Enfermos (
+    IDEnfermo INT PRIMARY KEY,
+    Nombre NVARCHAR(50),
+    Apellido NVARCHAR(50),
+    FechaIngreso DATE,
+    Diagnostico NVARCHAR(MAX),
+    NumeroEmpleadoMedico INT,
+    FOREIGN KEY (NumeroEmpleadoMedico) REFERENCES Empleados(NumeroEmpleado)
+);
+
+--ESTUDIANTE: Heydi Chaina Velasquez
+--INSERCIÓN DE DATOS
+--Inserción de datos para la tabla Empleados
+INSERT INTO Empleados (NumeroEmpleado, Nombre, Apellido, FechaNacimiento, FechaAlta, Especialidad, Departamento, Salario)
+VALUES
+    (1, 'Juan', 'Pérez', '1980-05-15', '2022-01-01', 'Médico General', 'Medicina General', 60000),
+    (2, 'Ana', 'Gómez', '1985-08-20', '2022-02-01', 'Pediatra', 'Pediatría', 70000),
+    (3, 'Carlos', 'Fernández', '1990-03-10', '2022-03-15', 'Enfermero', 'Enfermería', 45000),
+    (4, 'Isabel', 'Rodríguez', '1978-12-05', '2022-04-10', 'Cirujano', 'Cirugía', 80000),
+    (5, 'Miguel', 'López', '1982-06-25', '2022-05-20', 'Dentista', 'Odontología', 65000),
+    (6, 'Luisa', 'Martínez', '1995-02-18', '2022-06-03', 'Geriatra', 'Geriatría', 75000),
+    (7, 'Raúl', 'González', '1987-09-12', '2022-07-12', 'Médico General', 'Medicina General', 60000),
+    (8, 'Silvia', 'Torres', '1993-11-30', '2022-08-22', 'Pediatra', 'Pediatría', 70000),
+    (9, 'Javier', 'Díaz', '1984-04-08', '2022-09-05', 'Enfermero', 'Enfermería', 45000),
+    (10, 'Elena', 'Sánchez', '1998-07-17', '2022-10-18', 'Cirujano', 'Cirugía', 80000),
+    (11, 'Daniel', 'Ramírez', '1989-01-22', '2022-11-02', 'Dentista', 'Odontología', 65000),
+    (12, 'Paula', 'Gómez', '1991-06-30', '2022-12-12', 'Geriatra', 'Geriatría', 75000),
+    (13, 'Mario', 'Fernández', '1983-08-14', '2023-01-05', 'Médico General', 'Medicina General', 60000),
+    (14, 'Laura', 'Rodríguez', '1990-05-03', '2023-02-10', 'Pediatra', 'Pediatría', 70000),
+    (15, 'Roberto', 'Martínez', '1987-11-28', '2023-03-15', 'Enfermero', 'Enfermería', 45000),
+    (16, 'Carmen', 'López', '1980-09-18', '2023-04-20', 'Cirujano', 'Cirugía', 80000),
+    (17, 'Andrés', 'González', '1993-04-22', '2023-05-25', 'Dentista', 'Odontología', 65000),
+    (18, 'Sara', 'Torres', '1985-07-07', '2023-06-03', 'Geriatra', 'Geriatría', 75000),
+    (19, 'Juanita', 'Díaz', '1996-03-12', '2023-07-12', 'Médico General', 'Medicina General', 60000),
+    (20, 'Roberto', 'Sánchez', '1982-10-30', '2023-08-22', 'Pediatra', 'Pediatría', 70000),
+    (21, 'Juan', 'Pérez', '1980-05-15', '2015-01-01', 'Médico General', 'Medicina General', 60000),
+    (22, 'Ana', 'Gómez', '1985-08-20', '2015-02-01', 'Pediatra', 'Pediatría', 70000),
+    (23, 'Carlos', 'Fernández', '1990-03-10', '2015-03-15', 'Enfermero', 'Enfermería', 45000),
+    (24, 'Isabel', 'Rodríguez', '1978-12-05', '2015-04-10', 'Cirujano', 'Cirugía', 80000),
+    (25, 'Miguel', 'López', '1982-06-25', '2015-05-20', 'Dentista', 'Odontología', 65000),
+    (26, 'Luisa', 'Martínez', '1995-02-18', '2015-06-03', 'Geriatra', 'Geriatría', 75000),
+    (27, 'Raúl', 'González', '1987-09-12', '2015-07-12', 'Médico General', 'Medicina General', 60000),
+    (28, 'Silvia', 'Torres', '1993-11-30', '2015-08-22', 'Pediatra', 'Pediatría', 70000),
+    (29, 'Javier', 'Díaz', '1984-04-08', '2015-09-05', 'Enfermero', 'Enfermería', 45000),
+    (30, 'Elena', 'Sánchez', '1998-07-17', '2015-10-18', 'Cirujano', 'Cirugía', 80000),
+    (31, 'Daniel', 'Ramírez', '1989-01-22', '2015-11-02', 'Dentista', 'Odontología', 65000),
+    (32, 'Paula', 'Gómez', '1991-06-30', '2015-12-12', 'Geriatra', 'Geriatría', 75000),
+    (33, 'Mario', 'Fernández', '1983-08-14', '2016-01-05', 'Médico General', 'Medicina General', 60000),
+    (34, 'Laura', 'Rodríguez', '1990-05-03', '2016-02-10', 'Pediatra', 'Pediatría', 70000),
+    (35, 'Roberto', 'Martínez', '1987-11-28', '2016-03-15', 'Enfermero', 'Enfermería', 45000),
+    (36, 'Carmen', 'López', '1980-09-18', '2016-04-20', 'Cirujano', 'Cirugía', 80000),
+    (37, 'Andrés', 'González', '1993-04-22', '2016-05-25', 'Dentista', 'Odontología', 65000),
+    (38, 'Sara', 'Torres', '1985-07-07', '2016-06-03', 'Geriatra', 'Geriatría', 75000),
+    (39, 'Juanita', 'Díaz', '1996-03-12', '2016-07-12', 'Médico General', 'Medicina General', 60000),
+    (40, 'Roberto', 'Sánchez', '1982-10-30', '2016-08-22', 'Pediatra', 'Pediatría', 70000),
+    (41, 'Luis', 'Ramírez', '1986-02-28', '2016-09-05', 'Enfermero', 'Enfermería', 45000),
+    (42, 'Marta', 'Fernández', '1997-06-17', '2016-10-18', 'Cirujano', 'Cirugía', 80000),
+    (43, 'Eduardo', 'Gómez', '1988-09-01', '2016-11-02', 'Dentista', 'Odontología', 65000),
+    (44, 'Carolina', 'López', '1992-12-10', '2016-12-12', 'Geriatra', 'Geriatría', 75000),
+    (45, 'Ricardo', 'Torres', '1984-03-22', '2017-01-05', 'Médico General', 'Medicina General', 60000),
+    (46, 'Alicia', 'Martínez', '1990-05-08', '2017-02-10', 'Pediatra', 'Pediatría', 70000),
+    (47, 'José', 'Ramírez', '1987-10-28', '2017-03-15', 'Enfermero', 'Enfermería', 45000),
+    (48, 'Ana', 'Sánchez', '1981-08-18', '2017-04-20', 'Cirujano', 'Cirugía', 80000),
+    (49, 'Héctor', 'González', '1995-11-14', '2017-05-25', 'Dentista', 'Odontología', 65000),
+    (50, 'Beatriz', 'Díaz', '1983-07-01', '2017-06-03', 'Geriatra', 'Geriatría', 75000),
+    (51, 'Francisco', 'Ramírez', '1998-01-22', '2017-07-12', 'Médico General', 'Medicina General', 60000),
+    (52, 'Natalia', 'Sánchez', '1982-04-30', '2017-08-22', 'Pediatra', 'Pediatría', 70000),
+    (53, 'Alejandro', 'Fernández', '1993-09-05', '2017-09-05', 'Enfermero', 'Enfermería', 45000),
+    (54, 'María', 'Torres', '1986-12-18', '2017-10-18', 'Cirujano', 'Cirugía', 80000),
+    (55, 'Pablo', 'Martínez', '1990-02-10', '2017-11-02', 'Dentista', 'Odontología', 65000),
+    (56, 'Elena', 'Gómez', '1984-06-25', '2017-12-12', 'Geriatra', 'Geriatría', 75000),
+    (57, 'Víctor', 'González', '1996-08-14', '2018-01-05', 'Médico General', 'Medicina General', 60000),
+    (58, 'Laura', 'Ramírez', '1988-05-03', '2018-02-10', 'Pediatra', 'Pediatría', 70000),
+    (59, 'Roberto', 'Martínez', '1992-11-28', '2018-03-15', 'Enfermero', 'Enfermería', 45000),
+    (60, 'Sofía', 'López', '1980-09-18', '2018-04-20', 'Cirujano', 'Cirugía', 80000);
+
+
+
+--Inserción de datos para la tabla Departamentos
+INSERT INTO Departamentos (IDDepartamento, NombreDepartamento, Ubicacion, NumeroEmpleadoJefe)
+VALUES
+    (1, 'Medicina General', 'Piso 1', 1),
+    (2, 'Pediatría', 'Piso 2', 2),
+    (3, 'Enfermería', 'Piso 3', 15),
+    (4, 'Cirugía', 'Piso 4', 10),
+    (5, 'Odontología', 'Piso 5', 5),
+    (6, 'Geriatría', 'Piso 6', 12),
+    (7, 'Medicina General', 'Piso 7', 19),
+    (8, 'Pediatría', 'Piso 8', 14),
+    (9, 'Enfermería', 'Piso 9', 8),
+    (10, 'Cirugía', 'Piso 10', 16),
+    (11, 'Odontología', 'Piso 11', 11),
+    (12, 'Geriatría', 'Piso 12', 18),
+    (13, 'Medicina General', 'Piso 13', 13),
+    (14, 'Pediatría', 'Piso 14', 7),
+    (15, 'Enfermería', 'Piso 15', 3),
+    (16, 'Cirugía', 'Piso 16', 9),
+    (17, 'Odontología', 'Piso 17', 17),
+    (18, 'Geriatría', 'Piso 18', 6),
+    (19, 'Medicina General', 'Piso 19', 20),
+    (20, 'Pediatría', 'Piso 20', 4);
+
+
+--Inserción de datos para la tabla Productos
+INSERT INTO Productos (IDProducto, NombreProducto, Precio, CantidadStock)
+VALUES
+    (1, 'Aspirina', 5.99, 100),
+    (2, 'Termómetro Digital', 15.50, 50),
+    (3, 'Jeringa', 2.75, 200),
+    (4, 'Vendaje Elástico', 8.99, 75),
+    (5, 'Paracetamol', 3.50, 120),
+    (6, 'Gotas Oftálmicas', 12.75, 30),
+    (7, 'Antiséptico', 6.25, 90),
+    (8, 'Analgésico en Gel', 7.50, 60),
+    (9, 'Vitaminas C', 9.99, 40),
+    (10, 'Gasas Estériles', 4.25, 150),
+    (11, 'Antibiótico', 15.99, 25),
+    (12, 'Solución Salina', 3.75, 100),
+    (13, 'Vendaje Adhesivo', 6.50, 80),
+    (14, 'Alcohol en Gel', 4.99, 70),
+    (15, 'Aspirina Infantil', 7.25, 45),
+    (16, 'Termómetro de Oído', 22.50, 20),
+    (17, 'Vitaminas para Niños', 10.99, 35),
+    (18, 'Antipirético', 4.50, 110),
+    (19, 'Vendas Elásticas', 9.25, 55),
+    (20, 'Antiinflamatorio', 8.75, 65);
+
+
+--Inserción de datos para la tabla Consultas
+INSERT INTO Consultas (IDConsulta, NumeroEmpleado, FechaConsulta, Diagnostico)
+VALUES
+    (1, 1, '2022-03-01', 'Gripe común'),
+    (2, 2, '2022-03-05', 'Control de rutina'),
+    (3, 3, '2022-03-10', 'Dolor de garganta'),
+    (4, 4, '2022-03-15', 'Cirugía programada'),
+    (5, 5, '2022-03-20', 'Extracción dental'),
+    (6, 6, '2022-03-25', 'Revisión geriátrica'),
+    (7, 7, '2022-04-01', 'Dolor abdominal'),
+    (8, 8, '2022-04-05', 'Control pediátrico'),
+    (9, 9, '2022-04-10', 'Enfermedad leve'),
+    (10, 10, '2022-04-15', 'Cirugía de emergencia'),
+    (11, 11, '2022-04-20', 'Extracción de muela'),
+    (12, 12, '2022-04-25', 'Consulta rutinaria'),
+    (13, 13, '2022-05-01', 'Control médico'),
+    (14, 14, '2022-05-05', 'Dolor de cabeza'),
+    (15, 15, '2022-05-10', 'Curación de herida'),
+    (16, 16, '2022-05-15', 'Consulta dental'),
+    (17, 17, '2022-05-20', 'Revisión pediátrica'),
+    (18, 18, '2022-05-25', 'Extracción de apéndice'),
+    (19, 19, '2022-06-01', 'Dolor en el pecho'),
+    (20, 20, '2022-06-05', 'Fiebre alta');
+
+
+--Inserción de datos para la tabla Enfermos
+INSERT INTO Enfermos (IDEnfermo, Nombre, Apellido, FechaIngreso, Diagnostico, NumeroEmpleadoMedico)
+VALUES
+    (1, 'Maria', 'López', '2022-01-15', 'Fractura de brazo', 1),
+    (2, 'Pedro', 'Ramírez', '2022-02-10', 'Fiebre alta', 2),
+    (3, 'Laura', 'García', '2022-03-05', 'Dolor abdominal', 3),
+    (4, 'Roberto', 'Martínez', '2022-04-01', 'Gripe común', 4),
+    (5, 'Sofía', 'Gómez', '2022-05-18', 'Lesión en la pierna', 5),
+    (6, 'Pablo', 'Fernández', '2022-06-12', 'Dolor de espalda', 6),
+    (7, 'Carmen', 'Torres', '2022-07-05', 'Problemas gastrointestinales', 7),
+    (8, 'Javier', 'Díaz', '2022-08-22', 'Infección respiratoria', 8),
+    (9, 'Isabel', 'Sánchez', '2022-09-15', 'Quemadura leve', 9),
+    (10, 'Diego', 'Ramírez', '2022-10-18', 'Fractura de pierna', 10),
+    (11, 'Elena', 'López', '2022-11-02', 'Dolor abdominal', 11),
+    (12, 'Miguel', 'González', '2022-12-12', 'Dolor en el pecho', 12),
+    (13, 'Ana', 'Fernández', '2023-01-05', 'Fiebre y tos', 13),
+    (14, 'David', 'Martínez', '2023-02-10', 'Lesión en la mano', 14),
+    (15, 'Sara', 'Ramírez', '2023-03-15', 'Dolor de cabeza', 15),
+    (16, 'Roberto', 'González', '2023-04-20', 'Problemas dentales', 16),
+    (17, 'Luisa', 'Torres', '2023-05-25', 'Consulta rutinaria', 17),
+    (18, 'Daniel', 'López', '2023-06-03', 'Dolor en la rodilla', 18),
+    (19, 'Cristina', 'Ramírez', '2023-07-12', 'Infección de oído', 19),
+    (20, 'Jorge', 'Martínez', '2023-07-12', 'Infección de oído', 19);
+
+--CREACIÓN DE LOGINS
+--Logins para empleados
+CREATE LOGIN UsuarioEmpleado WITH PASSWORD = '1234567';
+CREATE USER UsuarioEmpleado FOR LOGIN UsuarioEmpleado;
+--Login para aplicación de tienda virtual
+CREATE LOGIN UsuarioTiendaVirtual WITH PASSWORD = '123456';
+CREATE USER UsuarioTiendaVirtual FOR LOGIN UsuarioTiendaVirtual;
+--Login para reportes estadísticos
+CREATE LOGIN UsuarioReportes WITH PASSWORD = '12345';
+CREATE USER UsuarioReportes FOR LOGIN UsuarioReportes;
+--Login para administración de la base de datos
+CREATE LOGIN AdminBD WITH PASSWORD = '123';
+CREATE USER AdminBD FOR LOGIN AdminBD;
+
+--OPERACIÓN 1.1. Obtener empleados dados de alta antes de 2018 en un departamento específico. 
+SELECT * 
+FROM Empleados
+WHERE FechaAlta < '2018-01-01' AND Departamento = 'Medicina General';
+
+--OPERACIÓN 1.2. Crear un procedimiento almacenado para insertar un nuevo departamento.
+CREATE PROCEDURE InsertarDepartamento
+    @NombreDepartamento NVARCHAR(50),
+    @Ubicacion NVARCHAR(50)
+AS
+BEGIN
+    INSERT INTO Departamentos (NombreDepartamento, Ubicacion)
+    VALUES (@NombreDepartamento, @Ubicacion);
+END;
+
+--Ejecución
+DECLARE @NombreDepartamento NVARCHAR(50)
+DECLARE @Ubicacion NVARCHAR(50)
+SET @NombreDepartamento = 'Odontopediatria'
+SET @Ubicacion = 'Piso 21'
+EXEC InsertarDepartamento @NombreDepartamento, @Ubicacion;
+
+--OPERACIÓN 1.3. Procedimiento para el promedio de edad por departamento.
+CREATE PROCEDURE ObtenerPromedioEdadPorDepartamento
+AS
+BEGIN
+    SELECT Departamento, AVG(DATEDIFF(YEAR, FechaNacimiento, GETDATE())) AS PromedioEdad
+    FROM Empleados
+    GROUP BY Departamento;
+END;
+--Ejecución del procedimiento almacenado
+EXEC ObtenerPromedioEdadPorDepartamento;
+
+--OPERACIÓN 1.4. Obtener apellido, oficio y salario por número de empleado.
+CREATE PROCEDURE ObtenerDetallesEmpleado
+    @NumeroEmpleado INT
+AS
+BEGIN
+    SELECT Apellido, Especialidad AS Oficio, Salario
+    FROM Empleados
+    WHERE NumeroEmpleado = @NumeroEmpleado;
+END;
+--Ejecución
+DECLARE @NumeroEmpleado INT
+SET @NumeroEmpleado = 50
+EXEC ObtenerDetallesEmpleado @NumeroEmpleado;
+
+
+--OPERACIÓN 1.5. Procedimiento para dar de baja a un empleado por apellido.
+CREATE PROCEDURE DarDeBajaEmpleado
+    @Apellido NVARCHAR(50)
+AS
+BEGIN
+    DELETE FROM Empleados
+    WHERE Apellido = @Apellido;
+END;
+
+-- Desactivar las restricciones
+ALTER TABLE Departamentos NOCHECK CONSTRAINT FK__Departame__Numer__4BAC3F29;
+ALTER TABLE Consultas NOCHECK CONSTRAINT FK__Consultas__Numer__5070F446;
+ALTER TABLE Enfermos NOCHECK CONSTRAINT FK__Enfermos__Numero__534D60F1;
+
+-- Ejecutar el procedimiento DarDeBajaEmpleado
+DECLARE @Apellido NVARCHAR(50)
+SET @Apellido = 'Torres'
+EXEC DarDeBajaEmpleado @Apellido;
+
+-- Volver a activar las restricciones
+ALTER TABLE Departamentos WITH CHECK CHECK CONSTRAINT FK__Departame__Numer__4BAC3F29;
+ALTER TABLE Consultas WITH CHECK CHECK CONSTRAINT FK__Consultas__Numer__5070F446;
+ALTER TABLE Enfermos WITH CHECK CHECK CONSTRAINT FK__Enfermos__Numero__534D60F1;
+-- Verificar datos inconsistentes
+SELECT * FROM Departamentos
+WHERE NumeroEmpleadoJefe IS NOT NULL
+      AND NumeroEmpleadoJefe NOT IN (SELECT NumeroEmpleado FROM Empleados);
+-- Eliminar datos inconsistentes
+DELETE FROM Departamentos
+WHERE NumeroEmpleadoJefe IS NOT NULL
+      AND NumeroEmpleadoJefe NOT IN (SELECT NumeroEmpleado FROM Empleados);
+-- Verificar datos inconsistentes
+SELECT * FROM Consultas
+WHERE NumeroEmpleado IS NOT NULL
+      AND NumeroEmpleado NOT IN (SELECT NumeroEmpleado FROM Empleados);
+-- Eliminar datos inconsistentes
+DELETE FROM Consultas
+WHERE NumeroEmpleado IS NOT NULL
+      AND NumeroEmpleado NOT IN (SELECT NumeroEmpleado FROM Empleados);
+-- Verificar datos inconsistentes
+SELECT * FROM Enfermos
+WHERE NumeroEmpleadoMedico IS NOT NULL
+      AND NumeroEmpleadoMedico NOT IN (SELECT NumeroEmpleado FROM Empleados);
+-- Eliminar datos inconsistentes
+DELETE FROM Enfermos
+WHERE NumeroEmpleadoMedico IS NOT NULL
+      AND NumeroEmpleadoMedico NOT IN (SELECT NumeroEmpleado FROM Empleados);
+
+
+--OPERACIÓN 2.1.1. Utilizar Tipos de Datos Enteros cuando sea Posible
+ALTER TABLE Empleados
+ALTER COLUMN NumeroEmpleado INT IDENTITY(1,1) PRIMARY KEY;
+
+--OPERACIÓN 2.1.2. Utilizar Fechas y Horas Apropiadas
+ALTER TABLE Empleados
+ALTER COLUMN FechaNacimiento DATE NOT NULL;
+
+--OPERACIÓN 2.2.1. Restricción DEFAULT
+ALTER TABLE Empleados
+ADD CONSTRAINT DF_FechaAlta DEFAULT GETDATE() FOR FechaAlta;
+
+--OPERACIÓN 2.2.2. Restricción CHECK
+ALTER TABLE Empleados
+ADD CONSTRAINT CHK_Salario CHECK (Salario >= 0);
+
+--OPERACIÓN 2.2.3. Restricción UNIQUE
+WITH DuplicatesCTE AS (
+    SELECT NombreDepartamento, ROW_NUMBER() OVER (PARTITION BY NombreDepartamento ORDER BY (SELECT NULL)) AS RowNum
+    FROM Departamentos
+)
+DELETE FROM DuplicatesCTE WHERE RowNum > 1;
+
+ALTER TABLE Departamentos
+ADD CONSTRAINT UQ_NombreDepartamento UNIQUE (NombreDepartamento);
+
+--OPERACIÓN 2.2.4. Restricción IDENTITY
+ALTER TABLE Departamentos
+ALTER COLUMN IDDepartamento INT IDENTITY(1,1) PRIMARY KEY;
+------------------------------------------------------------------------------------------------------------
+--OPERACIÓN 3.1. Crear store procedures con variables locales, parámetros de entrada y de salida
+-- Crear un Stored Procedure para insertar un nuevo producto en la tienda virtual
+CREATE PROCEDURE InsertarProducto
+    @NombreProducto NVARCHAR(50),
+    @Precio DECIMAL(10, 2),
+    @CantidadStock INT OUTPUT
+AS
+BEGIN
+    DECLARE @NuevoProductoID INT;
+
+    INSERT INTO Productos (NombreProducto, Precio, CantidadStock)
+    VALUES (@NombreProducto, @Precio, 0);
+
+    SET @NuevoProductoID = SCOPE_IDENTITY();
+
+    UPDATE Productos
+    SET CantidadStock = @NuevoProductoID
+    WHERE IDProducto = @NuevoProductoID;
+
+    SET @CantidadStock = (SELECT CantidadStock FROM Productos WHERE IDProducto = @NuevoProductoID);
+END;
+
+--Ejecución
+DECLARE @NombreProducto NVARCHAR(50) = 'Amoxicilina';
+DECLARE @Precio DECIMAL(10, 2) = 25.99;
+DECLARE @CantidadStock INT;
+EXEC InsertarProducto @NombreProducto, @Precio, @CantidadStock OUTPUT;
+PRINT 'Cantidad de Stock después de la inserción: ' + CAST(@CantidadStock AS NVARCHAR(10));
+
+-- Obtener la estructura actualizada de la tabla
+EXEC sp_help 'Productos';
+
+--Creacion de la tabla Ventas
+CREATE TABLE dbo.Ventas (
+    VentaID INT PRIMARY KEY IDENTITY(1,1),
+);
+-- Agregar las columnas que faltan a la tabla Ventas
+ALTER TABLE Ventas
+ADD FechaVenta DATETIME,
+    ClienteID INT;
+
+--Creacion de la tabla DetallesVentas
+CREATE TABLE dbo.DetallesVentas (
+    DetalleVentaID INT PRIMARY KEY IDENTITY(1,1),
+    VentaID INT FOREIGN KEY REFERENCES Ventas(VentaID),
+    ProductoID INT,
+    Precio DECIMAL(10, 2),
+    Cantidad INT,
+);
+-- Insertar un producto
+INSERT INTO Productos (NombreProducto, Precio, CantidadStock) 
+VALUES ('Paracetamol', 10.99, 100);
+-- Insertar una venta
+DECLARE @VentaID INT;
+INSERT INTO Ventas (FechaVenta, ClienteID) 
+VALUES (2023-12-10, 1); 
+-- Insertar un detalle de venta asociado al producto y la venta
+INSERT INTO DetallesVentas (VentaID, ProductoID, Precio, Cantidad) 
+VALUES (1, 1, 10.99, 5); 
+
+--ESTUDIANTE: Heydi Chaina Velasquez
+--OPERACIÓN 3.2. Crear funciones con variables locales, parámetros de entrada y de salida
+-- Crear una función para calcular el total de ventas de un producto
+CREATE FUNCTION CalcularTotalVentas
+    (@ProductoID INT)
+RETURNS DECIMAL(10, 2)
+AS
+BEGIN
+    DECLARE @TotalVentas DECIMAL(10, 2);
+
+    -- Calcular el total de ventas para el producto especificado
+    SELECT @TotalVentas = SUM(Precio * Cantidad) 
+    FROM DetallesVentas
+    WHERE ProductoID = @ProductoID;
+
+    RETURN @TotalVentas;
+END;
+--Ejecución
+DECLARE @ProductoID INT = 1; 
+SELECT dbo.CalcularTotalVentas(@ProductoID) AS TotalVentas;
+
+--ESTUDIANTE: Heydi Chaina Velasquez
+--OPERACIÓN 3.3. Aplicar sentencias condicionales y sentencias repetitiva en un programa Transact SQL
+CREATE PROCEDURE CondicionalRepetitivo
+    @Cantidad INT
+AS
+BEGIN
+    DECLARE @Contador INT = 1;
+
+    WHILE @Contador <= @Cantidad
+    BEGIN
+        DECLARE @ProductoID INT = @Contador;
+        DECLARE @NombreProducto NVARCHAR(50);
+        DECLARE @Precio DECIMAL(10, 2);
+        DECLARE @CantidadStock INT;
+
+        SELECT
+            @NombreProducto = NombreProducto,
+            @Precio = Precio,
+            @CantidadStock = CantidadStock
+        FROM Productos
+        WHERE IDProducto = @ProductoID;
+        -- Imprimir información del producto
+        IF @CantidadStock > 0
+        BEGIN
+            PRINT 'ID: ' + CAST(@ProductoID AS NVARCHAR(10)) +
+                  ', Nombre: ' + @NombreProducto +
+                  ', Precio: ' + CAST(@Precio AS NVARCHAR(10)) +
+                  ', Cantidad en Stock: ' + CAST(@CantidadStock AS NVARCHAR(10));
+        END
+        ELSE
+        BEGIN
+            PRINT 'ID: ' + CAST(@ProductoID AS NVARCHAR(10)) +
+                  ', Nombre: ' + @NombreProducto +
+                  ', Precio: ' + CAST(@Precio AS NVARCHAR(10)) +
+                  ', ¡Agotado!';
+        END
+
+        SET @Contador = @Contador + 1;
+    END
+END;
+-- Ejecución
+DECLARE @Cantidad INT = (SELECT COUNT(*) FROM Productos);
+EXEC CondicionalRepetitivo @Cantidad;
+
+
+--ESTUDIANTE: Heydi Chaina Velasquez
+--OPERACIÓN 4.1. Recuperar e intersectar datos
+SELECT *
+FROM Empleados
+WHERE Departamento = 'Cirugía'
+INTERSECT
+SELECT *
+FROM Empleados
+WHERE Salario > 30000;
+
+
+--ESTUDIANTE: Heydi Chaina Velasquez
+--OPERACIÓN 4.2. Manipular datos con consultas múltiples para obtener estadísticas de productos y ventas
+SELECT
+    P.NombreProducto,
+    P.Precio,
+    P.CantidadStock,
+    ISNULL(SUM(DV.Cantidad), 0) AS TotalVentas
+FROM
+    Productos P
+LEFT JOIN DetallesVentas DV ON P.IDProducto = DV.ProductoID
+GROUP BY
+    P.IDProducto, P.NombreProducto, P.Precio, P.CantidadStock;
+--ESTUDIANTE: Heydi Chaina Velasquez
+--OPERACIÓN 4.3. Uso de GROUP BY y HAVING
+SELECT Especialidad, AVG(Salario) AS SalarioPromedio
+FROM Empleados
+GROUP BY Especialidad
+HAVING COUNT(*) > 2;
+
+--ESTUDIANTE: Heydi Chaina Velasquez
+--OPERACIÓN 4.4. Usar subconsultas con procedimientos almacenados.
+CREATE PROCEDURE ObtenerDetallesVenta
+    @VentaID INT
+AS
+BEGIN
+    SELECT
+        V.VentaID,
+        V.FechaVenta,
+        dbo.CalcularTotalVentas(@VentaID) AS TotalVentas,
+        (SELECT COUNT(1) FROM DetallesVentas WHERE V.VentaID = DetallesVentas.VentaID) AS CantidadProductos
+    FROM
+        Ventas V
+    WHERE
+        V.VentaID = @VentaID;
+END;
+
+--Ejecución
+DECLARE @VentaID INT = 1;
+EXEC ObtenerDetallesVenta @VentaID;
+
+
+--ESTUDIANTE: Heydi Chaina Velasquez
+--OPERACIÓN 4.5.  Creación y claificación de vistas
+--Vista 1 - Vista de Resumen
+CREATE VIEW VistaReporteClinica AS
+SELECT NumeroEmpleado, Nombre, Especialidad
+FROM Empleados
+WHERE Departamento = 'Cirugía';
+--Vista 2 - Vista Analítica
+CREATE VIEW VistaDetallesVentasPorVentaID AS
+SELECT
+    V.VentaID,
+    V.FechaVenta,
+    dbo.CalcularTotalVentas(V.VentaID) AS TotalVentas,
+    (SELECT COUNT(1) FROM DetallesVentas WHERE V.VentaID = DetallesVentas.VentaID) AS CantidadProductos
+FROM
+    Ventas V;
+--Vista 3 - Vista de Resumen
+CREATE VIEW VistaProductosDisponibles AS
+SELECT
+    IDProducto,
+    NombreProducto,
+    Precio,
+    CantidadStock
+FROM
+    Productos
+WHERE
+    CantidadStock > 0;
+--Ejecución
+SELECT * FROM VistaReporteClinica;
+SELECT * FROM VistaDetallesVentasPorVentaID;
+SELECT * FROM VistaProductosDisponibles;
